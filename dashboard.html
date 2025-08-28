@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+
+    <div class="main">
+        <div class="sidebar">
+            <img src="images/logo.webp" width="130" class="d-block mx-auto mb-3" alt="">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a href="dashboard.html" class="nav-link d-block">Dashboard</a></li>
+                <li class="nav-item"><a href="employee.html" class="nav-link d-block">Employee Management</a></li>
+                <li class="nav-item"><a href="project.html" class="nav-link d-block">Project Management</a></li>
+                <li class="nav-item"><a href="assignment.html" class="nav-link d-block">Assignment Management</a></li>
+                <li class="nav-item"><a href="reporting.html" class="nav-link d-block">Reporting</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!------Navbar Start------>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary p-3 shadow-sm">
+                <div class="container-fluid">
+                    <button class="border-0" type="button" id="toggleBtn">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                    <ul class="nav align-items-center">
+                        <li class="nav-item">
+                            <a href="login.html" class="nav-link text-dark"><img src="images/user.png" width="25"
+                                    alt="">
+                                Kaushal</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!------Navbar End------>
+
+            <!------Inner Content------>
+            <div class="inner-content">
+                <h3 class="mb-3">Dashboard</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card bg-light p-4">
+                            <h5>Employee Management</h5>
+                            <a href="employee.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light p-4">
+                            <h5>Project Management</h5>
+                            <a href="project.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light p-4">
+                            <h5>Assignment Management</h5>
+                            <a href="assignment.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-5">
+                        <div class="card bg-light p-4">
+                            <h5>Employee Details-Department wise</h5>
+                            <a href="employee_report.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-5">
+                        <div class="card bg-light p-4">
+                            <h5>Total Salary-Department wise</h5>
+                            <a href="total_salary.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-5">
+                        <div class="card bg-light p-4">
+                            <h5>Ongoing Project Report</h5>
+                            <a href="ongoingproject.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!------Inner Content End------>
+        </div>
+    </div>
+
+
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#toggleBtn').click(function () {
+                $('.sidebar').toggleClass('full');
+                $('.content').toggleClass('full');
+            })
+        })
+    </script>
+    
+</body>
+
+</html>

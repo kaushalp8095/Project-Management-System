@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>total_salary Detail</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="">
+
+
+  <div class="main">
+    <div class="sidebar">
+      <img src="images/logo.webp" width="130" class="d-block mx-auto mb-3" alt="">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link d-block">Dashboard</a></li>
+        <li class="nav-item"><a href="employee.html" class="nav-link d-block">Emloyee Management</a></li>
+        <li class="nav-item"><a href="project.html" class="nav-link d-block">Project Managemnet</a></li>
+        <li class="nav-item"><a href="assignment.html" class="nav-link d-block">Assignment</a></li>
+        <li class="nav-item"><a href="reporting.html" class="nav-link d-block">Reporting</a></li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <!------Navbar Start------>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary p-3 shadow-sm">
+        <div class="container-fluid">
+          <button class="border-0" type="button" id="toggleBtn">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+          <ul class="nav align-items-center">
+            <li class="nav-item">
+              <a href="login.html" class="nav-link text-dark"><img src="images/user.png" width="25" alt=""> Kaushal</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!------Navbar End------>
+
+
+      <div class="inner-content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="mb-3">Total Salary - Department Wise</h3>
+          <a href="reporting.html" class="btn btn-secondary">Back To Reporting Page</a>
+        </div>
+
+        <div class="card mb-3 table-list-view">
+          <div class="table-responsive">
+            <table class="table mb-0" id="salaryTable">
+              <thead class="">
+                <tr>
+                  <th>Department Name</th>
+                  <th class="text-center">Total Salary</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#toggleBtn').click(function () {
+        $('.sidebar').toggleClass('full');
+        $('.content').toggleClass('full');
+      })
+    })
+  </script>
+  <script>
+    $(document).ready(function () {
+      $.ajax({
+        url: "http://localhost:8080/total_salary",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+          let rows = "";
+          data.forEach(function (dept) {
+            rows += `
+              <tr>
+                <td>${dept.department}</td>
+                <td class="text-center"><i class="fa-solid fa-indian-rupee-sign"></i>${dept.salary}</td>
+              </tr>
+            `;
+          });
+          $("#salaryTable tbody").html(rows);
+        },
+        error: function (xhr, status, error) {
+          alert("Failed to load salary data: " + error);
+          console.error("Error:", xhr.responseText);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

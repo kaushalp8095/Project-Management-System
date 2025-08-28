@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+
+  <div class="main">
+    <div class="sidebar">
+      <img src="images/logo.webp" width="130" class="d-block mx-auto mb-3" alt="">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link d-block">Dashboard</a></li>
+        <li class="nav-item"><a href="employee.html" class="nav-link d-block">Emloyee Management</a></li>
+        <li class="nav-item"><a href="project.html" class="nav-link d-block">Project Management</a></li>
+        <li class="nav-item"><a href="assignment.html" class="nav-link d-block">Assignment Management</a></li>
+        <li class="nav-item"><a href="reporting.html" class="nav-link d-block">Reporting</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <!------Navbar Start------>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary p-3 shadow-sm">
+        <div class="container-fluid">
+          <button class="border-0" type="button" id="toggleBtn">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+          <ul class="nav align-items-center">
+            <li class="nav-item">
+              <a href="#" class="nav-link text-dark"><img src="images/user.png" width="25" alt=""> Kaushal</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!------Navbar End------>
+
+      <!------Inner Content------>
+      <div class="inner-content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="mb-3">Project List</h3>
+          <a href="project_create.html" class="btn btn-primary">Add New project</a>
+        </div>
+        <div class="card mb-3 table-list-view">
+          <div class="table-responsive">
+            <table class="table mb-0" id="myTable">
+
+              <thead>
+                <tr>
+                  <th>Project Name</th>
+                  <th>Client Name</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Budget</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="tblData"></tbody>
+            </table>
+
+
+          </div>
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+      <!------Inner Content End------>
+    </div>
+  </div>
+
+
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#toggleBtn').click(function () {
+        $('.sidebar').toggleClass('full');
+        $('.content').toggleClass('full');
+      })
+    })
+  </script>
+
+  <script>
+
+    function pag() {
+
+      var rowsPerPage = 3;
+      var rows = $("#myTable tbody tr");
+      var rowsCount = rows.length;
+      var pageCount = Math.ceil(rowsCount / rowsPerPage);
+
+
+      for (var i = 1; i <= pageCount; i++) {
+        $("#pagination").append('<button>' + i + '</button>');
+      }
+
+      showPage(1);
+
+      $("#pagination button").click(function () {
+        var pageNum = $(this).text();
+        showPage(pageNum);
+        $("#pagination button").removeClass("active");
+        $(this).addClass("active");
+      });
+
+      function showPage(page) {
+        var start = (page - 1) * rowsPerPage;
+        var end = start + rowsPerPage;
+        rows.hide();
+        rows.slice(start, end).show();
+      }
+
+      $("#pagination button:first").addClass("active");
+    }
+  </script>
+
+
+
+  <script>
+
+    let deleteprojectId = null;
+
+    $(document).ready(function () {
+      getList();
+
+      function getList() {
+        $("#tblData").html("");
+
+        $.ajax({
+          url: 'http://localhost:8080/project_list',
+          method: 'GET',
+          contentType: 'application/json',
+          success: function (response) {
+            response.forEach(element => {
+              let str = `
+            <tr id="row-${element.proid}">
+              <td>${element.pname}</td>
+              <td>${element.cname}</td>
+              <td>${element.startdate}</td>
+              <td>${element.enddate}</td>
+              <td>${element.budget}</td>
+            
+               <td>
+                <a href="project_edit.html?id=${element.proid}" class="btn btn-sm btn-warning me-2 ms-5">Edit</a>
+                <button type="button" onclick="deleteData('${element.proid}')" class="btn btn-sm btn-danger">Delete</button>
+              </td>
+
+            </tr>`;
+              $("#tblData").append(str);
+            });
+            pag();
+          }
+        });
+      }
+
+      //  delete code
+      $('#DeleteBtn').on('click', function () {
+        if (deleteprojectId) {
+          $.ajax({
+            url: 'http://localhost:8080/project_delete',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ proid: deleteprojectId }),
+            success: function () {
+              $('#deleteModal').modal('hide');
+              getList();
+            }
+          });
+        }
+      });
+    });
+
+
+    function deleteData(id) {
+      deleteprojectId = id;
+      const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+      deleteModal.show();
+    }
+
+
+  </script>
+
+  <!-- Delete Model POP_UP-->
+
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header text-dark">
+          <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="images/trash.png" width="100" class="mb-3" alt="">
+          <h4> Are you sure <br>want to delete this employee?</h4>
+
+          <div class="text-center py-3">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No,Cancel</button>
+            <button type="button" id="DeleteBtn" class="btn btn-danger">Yes,Confirm</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>

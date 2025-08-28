@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-primary d-flex justify-content-center align-items-center" style="height: 100vh;">
+
+    <form action="" id="signupForm" class="p-4 bg-white mx-auto shadow rounded login-box">
+        <img src="images/logo.webp" width="150" alt="" class="d-block mx-auto">
+        <h3 class="text-center">Login here</h3>
+
+        <div class="mb-3">
+            <label for="" class="form-label mb-1 text-secondary">Email</label>
+            <input type="email" id="email" class="form-control">
+        </div>
+        <div class="mb-2">
+            <label for="" class="form-label mb-1 text-secondary">Password</label>
+            <input type="password" id="password" class="form-control">
+        </div>
+        <a href="#" class="text-decoration-none float-end small">Forgot Password ?</a>
+        <div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+    </form>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+
+        $("#signupForm").on("submit", function (e) {
+            e.preventDefault();
+
+            var loginData = {
+                email: $("#email").val(),
+                password: $("#password").val()
+            };
+
+            console.log(loginData);
+            $.ajax({
+                url: "http://localhost:8080/admin_login",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(loginData),
+                success: function (response) {
+                    alert(response);
+                    if (response == "success") {
+                        window.location.href = "dashboard.html";
+                    } else {
+                        alert("Invalid user");
+                    }
+                },
+                error: function (xhr) {
+                    alert("Login failed: " + xhr.responseText);
+                }
+            });
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>

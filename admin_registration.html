@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Form</title>
+
+  <link rel="stylesheet" href="css/registration.css">
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" class="ad_input" placeholder="Enter your full name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" class="ad_input" placeholder="Enter your email" required>
+
+      <label for="contact">Contact Number</label>
+      <input type="tel" id="contact" name="contact" class="ad_input" placeholder="Enter your contact number" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="ad_input" placeholder="Enter password" required>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="showPassword" onclick="showPassword()">
+        <label for="showPassword">Show Password</label>
+      </div>
+
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+
+
+
+  <script>
+    function showPassword() {
+      let password = document.getElementById("password");
+      password.type = (password.type === "password") ? "text" : "password";
+    }
+  </script>
+
+  <script>
+
+    $("#signupForm").on("submit", function (e) {
+      e.preventDefault();
+
+      let user = {
+        name: $("#name").val(),
+        email: $("#email").val(),
+        contact: $("#contact").val(),
+        password: $("#password").val()
+      };
+      console.log(user)
+      $.ajax({
+        url: "http://localhost:8080/admin_registration",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(user),
+        success: function (response) {
+          alert("Sign Up Successful! Welcome " + response.name);
+          window.location.href = "login.html";
+        },
+        error: function (xhr) {
+          alert("Signup failed: " + xhr.responseText);
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>
