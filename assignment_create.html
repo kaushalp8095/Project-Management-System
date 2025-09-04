@@ -101,7 +101,7 @@
 
 
       $.ajax({
-        url: "http://localhost:8080/employee_list",
+        url: "https://springboot-api-3qtr.onrender.com/employee_list",
         type: "GET",
         success: function (data) {
           data.forEach(function (emp) {
@@ -117,7 +117,7 @@
 
 
       $.ajax({
-        url: "http://localhost:8080/project_list",
+        url: "https://springboot-api-3qtr.onrender.com/project_list",
         type: "GET",
         success: function (data) {
           data.forEach(function (project) {
@@ -141,7 +141,7 @@
         };
 
         $.ajax({
-          url: "http://localhost:8080/assignment_create",
+          url: "https://springboot-api-3qtr.onrender.com/assignment_create",
           type: "POST",
           contentType: "application/json",
           data: JSON.stringify(assignment),
