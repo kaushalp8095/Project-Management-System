@@ -170,7 +170,7 @@
       $('#DeleteBtn').on('click', function () {
         if (deleteUserId) {
           $.ajax({
-            url: 'http://localhost:8080/delete',
+            url: 'https://springboot-api-3qtr.onrender.com/delete',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ empid: deleteUserId }),

@@ -111,7 +111,7 @@
 
       if (empId) {
         $.ajax({
-          url: `http://localhost:8080/edit/${empId}`,
+          url: `https://springboot-api-3qtr.onrender.com/edit/${empId}`,
           method: 'GET',
           success: function (data) {
             $('#name').val(data.name);

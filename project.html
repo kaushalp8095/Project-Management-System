@@ -163,7 +163,7 @@
       $('#DeleteBtn').on('click', function () {
         if (deleteprojectId) {
           $.ajax({
-            url: 'http://localhost:8080/project_delete',
+            url: 'https://springboot-api-3qtr.onrender.com/project_delete',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ proid: deleteprojectId }),
