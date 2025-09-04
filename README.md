@@ -19,5 +19,5 @@
 ==>Right click on index.html→ Open With Live Server.
 
 ==> after open index.html page please login candancial details given as
-    Email :chirag248586@gmail.com
-    Password : 112233
+    Email :admin@gmail.com
+    Password : 123456
