@@ -163,7 +163,7 @@
             $("#DeleteBtn").click(function () {
                 if (deleteId) {
                     $.ajax({
-                        url: "http://localhost:8080/assignment_delete",
+                        url: "https://springboot-api-3qtr.onrender.com/assignment_delete",
                         type: "POST",
                         contentType: "application/json",
                         data: JSON.stringify({ assignid: deleteId }),

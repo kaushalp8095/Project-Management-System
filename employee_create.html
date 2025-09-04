@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Employee Create Form</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
@@ -65,8 +65,8 @@
               <label for="department" class="form-label">Department</label>
               <select class="form-control" id="department" required>
                 <option value="it tech">it tech</option>
-                <option value="civil">civil</option>
-                <option value="iti mehsana">iti mehsana</option>
+                <option value="civil">Java Developer</option>
+                <option value="iti mehsana">Phython Developer</option>
               </select>
 
             </div>
@@ -116,7 +116,7 @@
         dateofjoin: dateofjoin
       };
       $.ajax({
-        url: 'http://localhost:8080/employee_create',
+        url: 'https://springboot-api-3qtr.onrender.com/employee_create',
         method: 'post',
         contentType: 'application/json',
         data: JSON.stringify(userdata),

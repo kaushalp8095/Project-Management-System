@@ -119,7 +119,7 @@
 
       if (projectId) {
         $.ajax({
-          url: `http://localhost:8080/project/edit/${projectId}`,
+          url: `https://springboot-api-3qtr.onrender.com/project/edit/${projectId}`,
           method: 'GET',
           success: function (pdata) {
             $('#p_name').val(pdata.pname);
